@@ -31,6 +31,7 @@ describe('generateRandomString', () => {
      * Tests the generateRandomString function to ensure it generates strings of the correct
      * length and type, depending on the specified character type (letters, numbers, alphanumeric).
      */
+    //test 1 
     test('should generate a random alphanumeric string of specified length', () => {
         const length = 8;
         const result = generateRandomString(length, 'alphanumeric');
@@ -39,7 +40,7 @@ describe('generateRandomString', () => {
         // Ensure the string contains only alphanumeric characters
         expect(result).toMatch(/^[A-Za-z0-9]+$/);
     });
-
+    //test 2
     test('should generate a random string containing only letters when specified', () => {
         const result = generateRandomString(5, 'letters');
         // Check that the generated string only contains letters
