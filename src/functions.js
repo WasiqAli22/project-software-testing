@@ -1,4 +1,5 @@
 // Merges two strings in alternating character order
+//Test 1 
 function mergeStringsAlternately(str1, str2) {
     if (typeof str1 !== 'string' || typeof str2 !== 'string') {
         throw new TypeError("Both arguments must be strings.");
