@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import SmartHomeUI from './SmartUI';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
         <p>
           Welcome to our Software Testing Project
         </p>
-       
+       <SmartHomeUI/>
       </header>
     </div>
   );
