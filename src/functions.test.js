@@ -46,11 +46,12 @@ describe('generateRandomString', () => {
         // Check that the generated string only contains letters
         expect(result).toMatch(/^[A-Za-z]+$/);
     });
-
+    //test 3
     test('should throw an error if the character type is invalid', () => {
         // An invalid type should throw an error
         expect(() => generateRandomString(5, 'symbols')).toThrow(Error);
     });
+    //End
 });
 
 describe('containsWord', () => {
