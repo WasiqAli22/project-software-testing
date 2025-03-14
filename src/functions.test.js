@@ -1,82 +1,110 @@
-// Import functions to test
+// Import functions to be tested from the functions module
 const { mergeStringsAlternately, generateRandomString, containsWord } = require('./functions');
 
+// Test suite for mergeStringsAlternately function
 describe('mergeStringsAlternately', () => {
-    /**
-     * Tests the mergeStringsAlternately function to ensure it correctly merges two strings
-     * by alternating characters from each input string.
-     */
+    // Test case: merging two strings of equal length
     test('should merge two strings of equal length alternately', () => {
-        // Both strings have the same length
         const result = mergeStringsAlternately('abc', '123');
-        // Expected result should alternate characters: "a1b2c3"
         expect(result).toBe('a1b2c3');
     });
 
+    // Test case: handling strings where one is longer than the other
     test('should handle strings where one is longer than the other', () => {
-        // First string is longer than the second
         const result = mergeStringsAlternately('abcd', '12');
-        // Expected result is "a1b2cd" (remaining characters in the longer string are appended)
         expect(result).toBe('a1b2cd');
     });
 
+    // Test case: ensuring function throws an error for invalid input types
     test('should throw a TypeError if either argument is not a string', () => {
-        // Invalid input where the second argument is not a string
         expect(() => mergeStringsAlternately('abc', 123)).toThrow(TypeError);
     });
 });
 
+// Test suite for generateRandomString function
 describe('generateRandomString', () => {
-    /**
-     * Tests the generateRandomString function to ensure it generates strings of the correct
-     * length and type, depending on the specified character type (letters, numbers, alphanumeric).
-     */
-    //test 1 
+    // Test case: generating an alphanumeric string of specified length
     test('should generate a random alphanumeric string of specified length', () => {
         const length = 8;
         const result = generateRandomString(length, 'alphanumeric');
-        // Ensure length is correct
         expect(result.length).toBe(length);
-        // Ensure the string contains only alphanumeric characters
         expect(result).toMatch(/^[A-Za-z0-9]+$/);
     });
-    //test 2
+
+    // Test case: ensuring generated string contains only letters
     test('should generate a random string containing only letters when specified', () => {
         const result = generateRandomString(5, 'letters');
-        // Check that the generated string only contains letters
         expect(result).toMatch(/^[A-Za-z]+$/);
     });
-    //test 3
+
+    // Test case: checking error handling for invalid character type
     test('should throw an error if the character type is invalid', () => {
-        // An invalid type should throw an error
         expect(() => generateRandomString(5, 'symbols')).toThrow(Error);
     });
-    //End
 });
 
+// Test suite for containsWord function
 describe('containsWord', () => {
-    /**
-     * Tests the containsWord function to ensure it correctly identifies whether a given word
-     * is present in a sentence, including checking for whole-word matches and case insensitivity.
-     */
+    // Test case: checking if a word exists in a sentence
     test('should return true if the word is in the sentence', () => {
         const sentence = "The quick brown fox jumps over the lazy dog";
         const word = "fox";
-        // Expect true because "fox" is present in the sentence
         expect(containsWord(sentence, word)).toBe(true);
     });
 
+    // Test case: checking if a word is absent in a sentence
     test('should return false if the word is not in the sentence', () => {
         const sentence = "Hello world";
         const word = "planet";
-        // Expect false because "planet" is not in the sentence
         expect(containsWord(sentence, word)).toBe(false);
     });
 
+    // Test case: ensuring function is case-insensitive
     test('should return true for case-insensitive matches', () => {
         const sentence = "JavaScript is awesome";
         const word = "javascript";
-        // Expect true because the function is case-insensitive
         expect(containsWord(sentence, word)).toBe(true);
+    });
+});
+
+// Integration tests to verify multiple functions working together
+describe('Integration Tests', () => {
+    // Test case: merging two randomly generated strings and checking their presence in result
+    test('should merge two randomly generated strings and check if result contains parts of both', () => {
+        const str1 = generateRandomString(5, 'letters');
+        const str2 = generateRandomString(5, 'letters');
+        const merged = mergeStringsAlternately(str1, str2);
+
+        // Ensure all characters from the first string are present in the merged result
+        for (let char of str1) {
+            expect(merged).toContain(char);
+        }
+                // Ensure all characters from the second string are present in the merged result
+
+        for (let char of str2) {
+            expect(merged).toContain(char);
+        }
+    });
+
+    // Test case: checking if a generated sentence contains a specific word
+    test('should generate a string and verify it contains a specific word', () => {
+        const word = 'test';
+        const sentence = `This is a ${word} case.`;
+        expect(containsWord(sentence, word)).toBe(true);
+    });
+
+    // Test case: merging two strings and verifying word presence
+    test('should merge two strings and verify word presence', () => {
+        const str1 = 'hello';
+        const str2 = 'world';
+        const merged = mergeStringsAlternately(str1, str2);
+
+        // Check that each character from the original words is present
+        for (let char of str1) {
+            expect(merged).toContain(char);
+        }
+        for (let char of str2) {
+            expect(merged).toContain(char);
+        }
     });
 });
