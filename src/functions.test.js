@@ -68,6 +68,8 @@ describe('containsWord', () => {
 });
 
 // Integration tests to verify multiple functions working together
+//Testing our function's test work 
+
 describe('Integration Tests', () => {
     // Test case: merging two randomly generated strings and checking their presence in result
     test('should merge two randomly generated strings and check if result contains parts of both', () => {
